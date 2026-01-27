@@ -1,0 +1,29 @@
+# Core
+numpy
+pandas
+scipy
+
+# Computer Vision
+opencv-python
+Pillow
+
+# Deep Learning
+torch
+torchvision
+ultralytics
+
+# Machine Learning
+scikit-learn
+xgboost
+
+# Tracking
+lap
+filterpy
+
+# Visualization & Utils
+matplotlib
+seaborn
+tqdm
+
+# Notebooks
+jupyter
