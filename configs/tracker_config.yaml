@@ -1,0 +1,15 @@
+# Tracker Configuration
+
+# Target Classes (ID -> Name)
+# This mapping ensures we know what 0, 1, 2, 3 mean.
+target_classes:
+  0: pedestrian
+  1: car
+  2: bicycle
+  3: motorcycle
+
+# Tracking Parameters
+tracking_parameters:
+  max_age: 30       # Maximum number of frames to keep a track alive without detection
+  min_hits: 3       # Minimum number of detections to confirm a track
+  iou_threshold: 0.3 # Minimum IOU overlap to match a detection to a track
