@@ -1,195 +1,208 @@
-# ADAS Pedestrian Automatic Emergency Braking (AEB)
+# ADAS Perception System for Automatic Emergency Braking (AEB)
 
 ## Overview
 
-This project implements a computer vision–based Advanced Driver Assistance System (ADAS) focused on pedestrian safety.  
-A YOLO deep learning model is trained to detect pedestrians in real-world driving scenes and forms the perception layer for an Automatic Emergency Braking (AEB) system.
+This project implements a **computer vision–based perception system for Advanced Driver Assistance Systems (ADAS)**, with a focus on **Automatic Emergency Braking (AEB)**.
 
-The system is designed as a modular research pipeline:
-- Detection
-- Risk estimation
-- Temporal decision logic
-- Future AEB integration
+A **YOLOv8 deep learning model** is trained to detect **multiple road agents** in real-world driving scenes.  
+The perception output is designed to serve as the foundation for **risk estimation and decision-making modules** in an AEB pipeline.
 
-This repository contains the perception + inference stage.
+### Detected Classes
+- Pedestrian
+- Car
+- Bicycle
+- Motorcycle
+
+This repository currently contains the **dataset preparation, training, evaluation, and inference pipeline**.
 
 ---
 
-## Quick Start
+## Quick Start (Local Inference)
 
+```bash
 git clone <repo-url>
 cd ADAS-Pedestrian-AEB
+
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 
-python src/detection/infer.py --source data/sample/test.jpg
+python src/detection/infer.py --source data/sample/test_multiclass.png
+```
 
 ---
 
-## Features
+## Key Features
 
-- YOLO-based pedestrian detection
-- Custom-trained model
-- Image & video inference pipeline
-- Saved evaluation artifacts
-- Reproducible training setup
-- Modular code structure
-- Ready for integration with control logic
+* Multiclass object detection for ADAS
+* YOLOv8-based custom training
+* Clean dataset conversion pipeline (BDD100K → YOLO)
+* Image & video inference support
+* Saved training metrics and visual artifacts
+* Modular, extensible codebase
+* CPU-compatible inference (GPU optional)
 
 ---
 
 ## Repository Structure
 
-```
-configs/        → dataset + model configs
-data/           → sample demo inputs (no raw dataset)
-models/         → trained weights
-src/            → core source code
-notebooks/      → training & experimentation notebooks
-results/        → logs, training plots, predictions
-reports/        → documentation & writeups
+```text
+configs/        → dataset & training configs
+data/           → sample images/videos for demo
+models/         → trained model weights
+src/            → source code (training, inference)
+notebooks/      → Colab & experimentation notebooks
+results/        → training logs, plots, predictions
+reports/        → documentation & analysis
 ```
 
-Large datasets are excluded from version control.
+> Raw datasets (BDD100K) are intentionally excluded from version control.
 
 ---
 
 ## Setup
 
-### 1. Create virtual environment
+### 1. Create Virtual Environment
 
-```
+```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 2. Install dependencies
+### 2. Install Dependencies
 
+```bash
+pip install -r requirements.txt
 ```
-pip install -r requirements-local.txt
+
+---
+
+## Dataset
+
+* Dataset: **BDD100K**
+* Images used: **6000**
+* Classes: pedestrian, car, bicycle, motorcycle
+* Labels converted from BDD JSON format to YOLO format
+
+Dataset configuration:
+
+```text
+configs/data.yaml
 ```
 
 ---
 
 ## Training
 
-Training was performed in Google Colab using GPU.
+Training was performed using **YOLOv8n** with pretrained weights.
 
-Model used:
-```
-YOLOv8n
+* Platform: **Google Colab**
+* GPU: **NVIDIA Tesla T4**
+* Epochs: 30
+* Image size: 640×640
+
+Training artifacts are stored in:
+
+```text
+results/training_multiclass/
 ```
 
-Dataset:
-```
-BDD pedestrian subset
-```
+These include:
 
-Training artifacts are saved in:
-
-```
-results/train_logs/
-```
+* loss curves
+* precision–recall plots
+* confusion matrix
+* label distribution
 
 ---
 
-## Inference Demo
+## Inference
 
-Run pedestrian detection on an image:
+### Image Inference
 
-```
-python src/detection/infer.py --source data/sample/test.jpg
-```
-
-Run detection on a video:
-
-```
-python src/detection/infer.py --source data/sample/test_video.mp4
+```bash
+python src/detection/infer.py \
+  --source data/sample/test_multiclass.png \
+  --model models/yolo_multiclass_best.pt
 ```
 
-Outputs are saved to:
+### Video Inference
 
-```
-results/inference/
+```bash
+python src/detection/infer.py \
+  --source data/sample/test_video_multiclass.mp4 \
+  --model models/yolo_multiclass_best.pt
 ```
 
-Bounding boxes are automatically drawn.
+### Output Locations
+
+```text
+results/inference/images_multiclass/
+results/inference/videos_multiclass/
+```
+
+Bounding boxes and class labels are rendered automatically.
 
 ---
 
-## Demo Output
+## Results (Multiclass Model)
 
-Example pedestrian detection:
+| Class      | mAP50 |
+| ---------- | ----- |
+| Pedestrian | ~0.43 |
+| Car        | ~0.68 |
+| Bicycle    | ~0.23 |
+| Motorcycle | ~0.27 |
 
-results/inference/images/image_output.jpg
-results/inference/videos/video_output.mp4
+Overall:
 
----
-
-## Results
-
-The trained model achieves:
-
-- mAP50 ≈ 0.61
-- mAP50-95 ≈ 0.30
-- Precision ≈ 0.73
-- Recall ≈ 0.52
-
-Evaluation plots include:
-
-- Precision–Recall curves
-- Loss curves
-- Confusion matrix
-- Label distribution
-
-These are stored in:
-
-```
-results/train_logs/
-```
+* **mAP50 ≈ 0.40**
+* **mAP50–95 ≈ 0.21**
 
 ---
 
-## Hardware Used
+## Hardware
 
-Training performed on NVIDIA Tesla T4 GPU (Google Colab)
-Inference runs on CPU or GPU
+* Training: NVIDIA Tesla T4 (Google Colab)
+* Inference: CPU or GPU (local machine)
 
 ---
 
 ## Reproducibility
 
-Training notebook:
-notebooks/yolo_training_pipeline.ipynb
+* Training notebook:  
+  `notebooks/yolo_training_pipeline.ipynb`
 
-Dataset config:
-configs/data.yaml
+* Dataset conversion scripts:  
+  `src/data/`
 
-Model weights:
-models/best.pt
+* Inference script:  
+  `src/detection/infer.py`
+
+* Model weights:  
+  `models/yolo_multiclass_best.pt`
 
 ---
 
 ## Future Work
 
-- Temporal pedestrian tracking
-- Collision risk prediction
-- Confidence-aware AEB logic
-- Real-time system integration
-- Edge deployment optimization
+* Temporal object tracking
+* Collision risk estimation (TTC-based)
+* Confidence-aware AEB logic
+* Sensor fusion (camera + radar)
+* Real-time deployment & optimization
 
 ---
 
 ## Team
 
-- Atharv
-- Chehek
-- Arnav
-- Debangan
+* Atharv
+* Chehek
+* Arnav
+* Debangan
 
 ---
 
 ## License
 
-Research & educational use only.
+For research and educational use only.
