@@ -1,0 +1,10 @@
+=== Tracking Evaluation Report ===
+Total Unique Tracks: 622
+Average Track Duration: 10.03 frames
+Max Track Duration: 185 frames
+Min Track Duration: 1 frames
+
+--- Class Breakdown ---
+car: 485
+person: 136
+bicycle: 1

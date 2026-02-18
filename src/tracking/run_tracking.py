@@ -54,6 +54,10 @@ def run_tracking(detection_dir, output_dir, config_path):
             score = d['confidence']
             cls_id = d.get('class_id', 0) # Default to 0 (pedestrian) if missing
             
+            # Filter classes: only track what is in target_classes
+            if cls_id not in target_classes:
+                continue
+
             dets_array.append([bbox[0], bbox[1], bbox[2], bbox[3], score, cls_id])
             
         dets_array = np.array(dets_array)

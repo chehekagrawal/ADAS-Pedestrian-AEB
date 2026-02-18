@@ -5,7 +5,7 @@ from ultralytics import YOLO
 from pathlib import Path
 
 
-def run_inference(source, model_path, save_dir, show=False):
+def run_inference(source, model_path, save_dir, show=False, classes=None):
     """
     Run YOLO inference on image / video / webcam.
 
@@ -14,6 +14,7 @@ def run_inference(source, model_path, save_dir, show=False):
         model_path: path to trained model
         save_dir: folder to save outputs
         show: display live window
+        classes: list of class indices to filter
     """
 
     # ---- Safety checks ----
@@ -50,7 +51,7 @@ def run_inference(source, model_path, save_dir, show=False):
             raise FileNotFoundError(f"Image not found: {source}")
 
         start = time.time()
-        results = model(img)
+        results = model(img, classes=classes)
         end = time.time()
 
         annotated = results[0].plot()
@@ -81,7 +82,7 @@ def run_inference(source, model_path, save_dir, show=False):
             break
 
         start = time.time()
-        results = model(frame)
+        results = model(frame, classes=classes)
         end = time.time()
 
         annotated = results[0].plot()
@@ -136,9 +137,15 @@ def main():
         action="store_true",
         help="Display live window",
     )
+    parser.add_argument(
+        "--classes",
+        nargs="+",
+        type=int,
+        help="Filter by class index (e.g. 0 1 2 3)",
+    )
 
     args = parser.parse_args()
-    run_inference(args.source, args.model, args.save, args.show)
+    run_inference(args.source, args.model, args.save, args.show, args.classes)
 
 
 if __name__ == "__main__":
