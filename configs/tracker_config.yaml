@@ -1,7 +1,10 @@
 tracking_parameters:
   max_age: 30
-  min_hits: 3
+  min_hits: 2
   iou_threshold: 0.3
+
+detection_parameters:
+  conf_threshold: 0.3
 
 target_classes:
   0: person

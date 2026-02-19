@@ -42,14 +42,14 @@ results/detections_multiclass/
 # =========================
 # Per-frame track JSONs (regenerable)
 # =========================
-results/tracking/tracks/
-results/tracking_extra/tracks/
-results/tracking_multiclass/tracks/
+results/tracking/tracking_person_1/tracks/
+results/tracking/tracking_person_2/tracks/
+results/tracking/tracking_multiclass/tracks/
 
 # =========================
 # Large video outputs
 # =========================
-results/tracking_multiclass/videos/
+results/tracking/tracking_multiclass/videos/
 
 # =========================
 # Model weights

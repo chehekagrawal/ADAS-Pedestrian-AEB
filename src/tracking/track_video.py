@@ -26,6 +26,7 @@ def track_video(source, model_path, output_path, config_path, classes=None):
     cfg = load_config(config_path)
     params = cfg['tracking_parameters']
     target_classes_map = cfg['target_classes']
+    conf_threshold = cfg.get('detection_parameters', {}).get('conf_threshold', 0.0)
     
     # Initialize Tracker
     tracker = Tracker(
@@ -77,7 +78,11 @@ def track_video(source, model_path, output_path, config_path, classes=None):
                 conf = float(box.conf[0].cpu().numpy())
                 cls = int(box.cls[0].cpu().numpy())
                 
-                # Filter if classes are specified (model call usually handles this, but good safety)
+                # Skip low-confidence detections
+                if conf < conf_threshold:
+                    continue
+                
+                # Filter if classes are specified
                 if classes and cls not in classes:
                     continue
                     

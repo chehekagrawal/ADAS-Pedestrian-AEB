@@ -1,11 +1,12 @@
 import argparse
 import cv2
 import json
+import yaml
 import logging
 from pathlib import Path
 from ultralytics import YOLO
 
-def generate_detections(source, model_path, output_dir):
+def generate_detections(source, model_path, output_dir, classes=None, conf_threshold=0.0):
     """
     Runs YOLO inference on a video and saves detections as JSON files (one per frame).
     """
@@ -26,7 +27,7 @@ def generate_detections(source, model_path, output_dir):
             break
             
         frame_id += 1
-        results = model(frame, verbose=False)
+        results = model(frame, verbose=False, classes=classes)
         
         detections = []
         for r in results:
@@ -37,6 +38,10 @@ def generate_detections(source, model_path, output_dir):
                 b = box.xyxy[0].cpu().numpy().tolist()
                 conf = float(box.conf[0].cpu().numpy())
                 cls = int(box.cls[0].cpu().numpy())
+                
+                # Skip low-confidence detections
+                if conf < conf_threshold:
+                    continue
                 
                 detections.append({
                     "bbox": b,
@@ -64,6 +69,17 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, default="models/best.pt", help="Path to YOLO model")
     parser.add_argument("--output", type=str, default="results/detections", help="Output directory for JSONs")
     
+    parser.add_argument("--classes", nargs="+", type=int, help="Filter by class index (e.g. 0 1 2 3)")
+    parser.add_argument("--config", type=str, default=None, help="Path to tracker config (for conf_threshold)")
+    
     args = parser.parse_args()
     
-    generate_detections(args.source, args.model, args.output)
+    # Read conf_threshold from config if provided
+    conf_threshold = 0.0
+    if args.config:
+        with open(args.config, 'r') as f:
+            cfg = yaml.safe_load(f)
+        conf_threshold = cfg.get('detection_parameters', {}).get('conf_threshold', 0.0)
+        print(f"Using confidence threshold: {conf_threshold}")
+    
+    generate_detections(args.source, args.model, args.output, args.classes, conf_threshold)
