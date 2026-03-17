@@ -41,7 +41,7 @@ def compute_ttc(vehicle_pos, obj_pos, v_rel):
 
 
 def main(
-    video_path="data/sample/test_video_multiclass.mp4",
+    video_path="data/sample/youtube_sample.mp4",
     trajectories_path="results/tracking/tracking_multiclass/trajectories.json",
     output_path="results/collision/plots/ttc_overlay.mp4",
     ego_speed_px_per_frame=12.0,

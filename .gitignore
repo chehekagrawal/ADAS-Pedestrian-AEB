@@ -31,6 +31,7 @@ runs/
 results/inference/
 results/predictions/
 results/inference_demo/
+results/collision/plots/ttc_overlay.mp4
 
 # =========================
 # Detection JSONs (regenerable)
@@ -61,3 +62,13 @@ results/tracking/tracking_multiclass/videos/
 # =========================
 .DS_Store
 Thumbs.db
+
+results/*
+!results/.gitkeep
+
+models/*.pt
+*.npz
+*.csv
+*.mp4
+*.png
+*.json
