@@ -1,6 +1,7 @@
 import json
 import os
 import numpy as np
+import argparse
 
 from src.collision.motion_model import predict_future, EgoVehicle
 from src.collision.collision_engine import (
@@ -14,9 +15,13 @@ from src.collision.collision_engine import (
 from src.collision.aeb_controller import AEBController
 
 
-def run_simulation():
+def run_simulation(trajectories_path="results/tracking/tracking_multiclass/trajectories.json", output_log="results/collision/logs/run_01.json"):
     # Load trajectories from Part 2 tracking output
-    with open("results/tracking/tracking_multiclass/trajectories.json", "r") as f:
+    if not os.path.exists(trajectories_path):
+        print(f"Error: Trajectories file not found at {trajectories_path}")
+        return
+
+    with open(trajectories_path, "r") as f:
         trajectories = json.load(f)
 
     ego = EgoVehicle(speed=12.0, deceleration=6.0, reaction_time=1.0)
@@ -24,6 +29,8 @@ def run_simulation():
 
     logs = []
     vehicle_position = [0, 0]  # assume car at origin
+
+    print(f"Running simulation using {trajectories_path}...")
 
     for track_id, detections in trajectories.items():
 
@@ -71,14 +78,20 @@ def run_simulation():
             })
 
     # Create output directory
-    os.makedirs("results/collision/logs", exist_ok=True)
+    os.makedirs(os.path.dirname(output_log), exist_ok=True)
 
     # Save logs
-    with open("results/collision/logs/run_01.json", "w") as f:
+    with open(output_log, "w") as f:
         json.dump(logs, f, indent=4)
 
-    print("Simulation complete. Logs saved.")
+    print(f"Simulation complete. Logs saved to {output_log}")
 
 
 if __name__ == "__main__":
-    run_simulation()
+    parser = argparse.ArgumentParser(description="Run AEB simulation based on trajectories")
+    parser.add_argument("--trajectories", default="results/tracking/tracking_multiclass/trajectories.json", help="Path to trajectories.json")
+    parser.add_argument("--output", default="results/collision/logs/run_01.json", help="Output JSON log path")
+    
+    args = parser.parse_args()
+    
+    run_simulation(trajectories_path=args.trajectories, output_log=args.output)

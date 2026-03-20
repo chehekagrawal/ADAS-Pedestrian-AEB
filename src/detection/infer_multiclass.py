@@ -55,7 +55,7 @@ def run_inference(source, model_path, save_dir, show=False, classes=None):
         end = time.time()
 
         annotated = results[0].plot()
-        output_path = save_dir / "image_output_multiclass.jpg"
+        output_path = save_dir / f"{Path(source).stem}_multiclass.jpg"
         cv2.imwrite(str(output_path), annotated)
 
         print(f"Inference time: {end - start:.3f}s")

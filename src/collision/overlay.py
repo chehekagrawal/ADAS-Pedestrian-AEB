@@ -2,17 +2,18 @@ import os
 import json
 import cv2
 import numpy as np
+import argparse
 
 # Class map for your project
 CLASS_MAP = {
     "person": "person",
-    "bicycle": "bicycle",
     "car": "car",
-    "motorcycle": "motorcycle",
+    "bike": "bike",
+    "motor": "motor",
     0: "person",
-    1: "bicycle",
-    2: "car",
-    3: "motorcycle",
+    1: "car",
+    2: "bike",
+    3: "motor",
 }
 
 
@@ -47,24 +48,33 @@ def main(
     ego_speed_px_per_frame=12.0,
 ):
     # Load trajectories from Part 2
+    if not os.path.exists(trajectories_path):
+        print(f"Error: Trajectories file not found at {trajectories_path}")
+        return
+
     with open(trajectories_path, "r") as f:
         trajectories = json.load(f)
 
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
-        raise FileNotFoundError(f"Could not open video: {video_path}")
+        print(f"Error: Could not open video: {video_path}")
+        return
 
     fps = cap.get(cv2.CAP_PROP_FPS)
     W = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     H = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    out = cv2.VideoWriter(output_path, fourcc, fps, (W, H))
+    if output_path:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        out = cv2.VideoWriter(output_path, fourcc, fps, (W, H))
 
     # Ego vehicle assumed at image center (more reasonable than 0,0)
     ego_pos = np.array([W / 2.0, H / 2.0], dtype=float)
+
+    # Scaling settings
+    font_scale = max(0.6, W / 1600.0)
+    thickness = max(2, int(W / 640.0))
 
     # Build quick lookup: for each frame, which tracks exist with bbox+class
     frame_index = {}
@@ -74,6 +84,7 @@ def main(
             frame_index.setdefault(fr, []).append((track_id, det))
 
     frame_num = 0
+    print(f"Generating overlay for {video_path}...")
     while True:
         ok, frame = cap.read()
         if not ok:
@@ -83,77 +94,83 @@ def main(
         fr_key = frame_num + 1
 
         # Draw ego reference point
-        cv2.circle(frame, (int(ego_pos[0]), int(ego_pos[1])), 5, (255, 255, 255), -1)
+        cv2.circle(frame, (int(ego_pos[0]), int(ego_pos[1])), thickness * 2, (255, 255, 255), -1)
         cv2.putText(
             frame,
             "EGO",
-            (int(ego_pos[0] + 8), int(ego_pos[1] - 8)),
+            (int(ego_pos[0] + 12), int(ego_pos[1] - 12)),
             cv2.FONT_HERSHEY_SIMPLEX,
-            0.6,
+            font_scale,
             (255, 255, 255),
-            2,
+            thickness,
         )
 
         if fr_key in frame_index:
             for track_id, det in frame_index[fr_key]:
                 bbox = det["bbox"]
-                cls = det.get("class", "unknown")
-                cls_name = CLASS_MAP.get(cls, str(cls))
+                cls_name = CLASS_MAP.get(det.get("class", "unknown"), "unknown")
 
                 x1, y1, x2, y2 = map(int, bbox)
                 cx, cy = int((x1 + x2) / 2), int((y1 + y2) / 2)
 
-                # Estimate velocity from last K positions within this track
-                # Collect historical centers up to current frame
-                dets = trajectories[track_id]
-                hist = [d for d in dets if int(d["frame"]) <= fr_key]
-                hist = hist[-5:]  # last 5 samples
-
+                # Estimate velocity
+                track_history = trajectories[track_id]
+                hist = [d for d in track_history if int(d["frame"]) <= fr_key]
+                hist = hist[-5:]
                 centers = [bbox_center(d["bbox"]) for d in hist]
                 frames_hist = [int(d["frame"]) for d in hist]
                 v_obj = estimate_velocity_from_centers(centers, frames_hist)
 
-                # Simplified relative velocity: ego moves forward magnitude ego_speed_px_per_frame
-                # We do not have ego direction, so treat ego velocity as towards object line-of-sight
                 obj_pos = np.array([float(cx), float(cy)])
                 los = obj_pos - ego_pos
                 los_norm = np.linalg.norm(los)
-                if los_norm > 1e-6:
-                    v_ego = (los / los_norm) * ego_speed_px_per_frame
-                else:
-                    v_ego = np.array([0.0, 0.0])
-
+                v_ego = (los / los_norm * ego_speed_px_per_frame) if los_norm > 1e-6 else np.array([0.0, 0.0])
                 v_rel = v_obj - v_ego
                 ttc, dist = compute_ttc(ego_pos, obj_pos, v_rel)
 
                 # Draw bbox
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                color = (0, 255, 255) # Bright Yellow
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color, thickness)
 
                 # Text overlay
-                if np.isinf(ttc) or ttc > 999:
-                    ttc_text = "TTC: inf"
-                else:
-                    ttc_text = f"TTC: {ttc:.2f}s"
-
+                ttc_text = "TTC: inf" if (np.isinf(ttc) or ttc > 999) else f"TTC: {ttc:.2f}s"
                 label = f"ID {track_id} | {cls_name} | {ttc_text}"
 
                 cv2.putText(
                     frame,
                     label,
-                    (x1, max(20, y1 - 8)),
+                    (x1, max(30, y1 - 10)),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    0.55,
-                    (0, 255, 0),
-                    2,
+                    font_scale,
+                    color,
+                    thickness,
                 )
 
-        out.write(frame)
+        if output_path:
+            out.write(frame)
+        
         frame_num += 1
+        if frame_num % 50 == 0:
+            print(f"Processed {frame_num} frames...")
 
     cap.release()
-    out.release()
+    if output_path:
+        out.release()
     print(f"Saved overlay video to: {output_path}")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Overlay TTC on video based on trajectories")
+    parser.add_argument("--video", default="data/sample/youtube_sample.mp4", help="Input video path")
+    parser.add_argument("--trajectories", default="results/tracking/tracking_multiclass/trajectories.json", help="Path to trajectories.json")
+    parser.add_argument("--output", default="results/collision/plots/ttc_overlay.mp4", help="Output video path")
+    parser.add_argument("--speed", type=float, default=12.0, help="Ego speed in px/frame")
+    
+    args = parser.parse_args()
+    
+    main(
+        video_path=args.video,
+        trajectories_path=args.trajectories,
+        output_path=args.output,
+        ego_speed_px_per_frame=args.speed
+    )

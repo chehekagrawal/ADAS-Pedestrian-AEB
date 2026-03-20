@@ -1,13 +1,13 @@
 tracking_parameters:
   max_age: 30
-  min_hits: 2
-  iou_threshold: 0.3
+  min_hits: 1
+  iou_threshold: 0.1
 
 detection_parameters:
-  conf_threshold: 0.3
+  conf_threshold: 0.15
 
 target_classes:
   0: person
-  1: bicycle
-  2: car
-  3: motorcycle
+  1: car
+  2: bike
+  3: motor
