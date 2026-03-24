@@ -65,7 +65,9 @@ def run_simulation(trajectories_path="results/tracking/tracking_multiclass/traje
             collision = check_collision(vehicle_poly, ped_pos)
 
             prob = collision_probability(ttc)
-            triggered = aeb.evaluate(ttc)
+            # Pass the simulated driver reaction time from the EgoVehicle
+            driver_delay = getattr(ego, 'reaction_time', 0.0)
+            triggered = aeb.evaluate(ttc, reaction_time=driver_delay)
 
             logs.append({
                 "frame": i,

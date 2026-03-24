@@ -1,0 +1,15 @@
+ear_thresholds:
+  eyes_open_min: 0.25
+  tired_max: 0.25
+  tired_min: 0.18
+  closed_max: 0.18
+
+temporal_windows:
+  blink_max_duration: 0.5  # seconds
+  microsleep_min_duration: 1.5  # seconds
+
+reaction_mapping:
+  ALERT: 0.7  # seconds delay
+  TIRED: 1.1
+  DROWSY: 1.6
+  MICROSLEEP: 100.0  # essentially infinite, force trigger
