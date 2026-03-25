@@ -12,7 +12,24 @@ def create_vehicle_box(center_x, center_y, length=4.5, width=2.0):
 
 
 def compute_distance(p1, p2):
+    """Compute pixel-based Euclidean distance between two points."""
     return np.linalg.norm(np.array(p1) - np.array(p2))
+
+
+def compute_distance_metric(depth_meters):
+    """
+    Use real-world metric distance from depth estimation module.
+
+    When MiDaS depth is available, this replaces compute_distance()
+    for physics-based calculations (TTC, braking, HIC).
+
+    Args:
+        depth_meters: float — distance to object in meters (from DepthEstimator)
+
+    Returns:
+        distance_m: float — same value, used by TTC and dynamics calculations
+    """
+    return max(0.0, float(depth_meters))
 
 
 def compute_relative_speed(vehicle_speed, pedestrian_velocity):
