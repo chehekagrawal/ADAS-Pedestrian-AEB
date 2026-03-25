@@ -1,0 +1,20 @@
+# MiDaS Depth Estimation Configuration
+# Used by src/depth/depth_estimator.py
+
+# Model selection:
+#   "MiDaS_small" — fast, CPU-friendly (~100ms/frame)
+#   "DPT_Large"   — accurate, needs GPU (~50ms/frame on GPU)
+model_type: "MiDaS_small"
+
+# Device: "cpu" or "cuda"
+device: "cpu"
+
+# Calibration factor for depth-to-meters conversion.
+# Calibrate by placing a known object at a known distance:
+#   calibration_factor = raw_midas_depth × known_distance_in_meters
+# Default is a rough estimate; recalibrate for your specific camera.
+calibration_factor: 500.0
+
+# Size of the patch (in pixels) around bbox center for depth sampling.
+# Larger = more stable, smaller = more precise.
+patch_size: 10
