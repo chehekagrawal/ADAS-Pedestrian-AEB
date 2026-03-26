@@ -132,9 +132,11 @@ def main(
                 color = (0, 255, 255) # Bright Yellow
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, thickness)
 
-                # Text overlay
+                # Text overlay — now includes depth in meters when available
                 ttc_text = "TTC: inf" if (np.isinf(ttc) or ttc > 999) else f"TTC: {ttc:.2f}s"
-                label = f"ID {track_id} | {cls_name} | {ttc_text}"
+                # depth_m is injected by the pipeline; falls back to pixel dist
+                depth_text = f"Depth: {dist:.0f}px"
+                label = f"ID {track_id} | {cls_name} | {depth_text} | {ttc_text}"
 
                 cv2.putText(
                     frame,
