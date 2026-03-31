@@ -11,5 +11,6 @@ temporal_windows:
 reaction_mapping:
   ALERT: 0.7  # seconds delay
   TIRED: 1.1
+  DISTRACTED: 1.3  # head turned away from road
   DROWSY: 1.6
   MICROSLEEP: 100.0  # essentially infinite, force trigger

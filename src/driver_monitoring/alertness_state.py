@@ -4,6 +4,7 @@ import time
 class AlertnessState(Enum):
     ALERT = "ALERT"
     TIRED = "TIRED"
+    DISTRACTED = "DISTRACTED"
     DROWSY = "DROWSY"
     MICROSLEEP = "MICROSLEEP"
 
@@ -15,6 +16,7 @@ class DriverStateTracker:
         self.eyes_closed_start_time = None
         self.consecutive_blinks = 0
         self.last_blink_time = time.time()
+        self._head_distracted = False
         
     def update_state(self, is_eyes_closed):
         current_time = time.time()
@@ -68,7 +70,42 @@ class DriverStateTracker:
                      self.current_state = AlertnessState.ALERT
                      
         return self.current_state
+
+    def update_head_pose(self, is_distracted):
+        """
+        Update state based on head pose distraction.
         
+        If head pose shows distraction (yaw > 30° or pitch > 25°),
+        override state to DISTRACTED — unless a more severe state
+        (DROWSY, MICROSLEEP) is already active.
+        
+        Args:
+            is_distracted: bool from head_pose.is_distracted()
+        
+        Returns:
+            Current AlertnessState
+        """
+        self._head_distracted = is_distracted
+        
+        if is_distracted:
+            # Only override if current state is less severe than DISTRACTED
+            severity = {
+                AlertnessState.ALERT: 0,
+                AlertnessState.TIRED: 1,
+                AlertnessState.DISTRACTED: 2,
+                AlertnessState.DROWSY: 3,
+                AlertnessState.MICROSLEEP: 4,
+            }
+            if severity.get(self.current_state, 0) < severity[AlertnessState.DISTRACTED]:
+                self.current_state = AlertnessState.DISTRACTED
+        else:
+            # If we were distracted and head returns to normal, go back to ALERT
+            # (unless eye-based state is more severe)
+            if self.current_state == AlertnessState.DISTRACTED:
+                self.current_state = AlertnessState.ALERT
+        
+        return self.current_state
+
     def get_reaction_delay(self):
         delays = self.config["reaction_mapping"]
         return delays.get(self.current_state.value, 0.7)

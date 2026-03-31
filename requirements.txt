@@ -9,3 +9,6 @@ pyyaml
 pillow
 scipy
 filterpy
+shapely
+dlib
+imutils
