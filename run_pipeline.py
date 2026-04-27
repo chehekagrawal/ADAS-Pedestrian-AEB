@@ -776,6 +776,9 @@ from src.collision.aeb_controller import AEBController
 # Alertness
 from src.driver_monitoring.alertness_state import AlertnessState
 
+# Thermodynamics
+from src.vehicle_dynamics.thermodynamics import BrakeThermodynamics
+
 # ─── Optional heavy modules ────────────────────────────────────────
 
 YOLO_AVAILABLE = False
@@ -905,6 +908,9 @@ class ADASPipeline:
 
         # ── Impact Analyzer ──
         self.impact_analyzer = ImpactAnalyzer() if IMPACT_AVAILABLE else None
+
+        # ── Thermodynamics ──
+        self.thermo = BrakeThermodynamics()
 
         # ── AEB Controller ──
         self.aeb_controller = AEBController(ttc_threshold=1.5)
@@ -1258,6 +1264,17 @@ class ADASPipeline:
         frame_log["driver_state"] = driver_state
         frame_log["reaction_time"] = total_reaction_time
 
+        # Update thermodynamics physics
+        dt = 1.0 / 30.0  # Assuming ~30 FPS average
+        # Since we evaluate AEB triggered *after* this loop, we use the previous frame's trigger state or simulate constant braking if currently triggered
+        if self.aeb_trigger_count > 0 and self.speed_kmh > 0: # Simple simulation of ongoing braking
+            self.thermo.apply_continuous_braking(8.5, self.speed_kmh, dt)
+        else:
+            self.thermo.cool_down(dt, self.speed_kmh)
+            
+        thermo_penalty = self.thermo.get_aeb_buffer_penalty()
+        frame_log["brake_temp_c"] = self.thermo.current_temperature
+
         # ── Step 10: Collision Analysis ──
         min_ttc = float("inf")
         aeb_triggered = False
@@ -1281,12 +1298,12 @@ class ADASPipeline:
             if distance_m < closest_distance:
                 closest_distance = distance_m
 
-            effective_threshold = adjusted_ttc_threshold + total_reaction_time
+            effective_threshold = adjusted_ttc_threshold + total_reaction_time + thermo_penalty
             if ttc < effective_threshold:
                 aeb_triggered = True
 
         if min_ttc < float("inf"):
-            self.aeb_controller.evaluate(min_ttc, reaction_time=total_reaction_time)
+            self.aeb_controller.evaluate(min_ttc, reaction_time=total_reaction_time, thermo_penalty=thermo_penalty)
 
         if aeb_triggered:
             self.aeb_trigger_count += 1
@@ -1411,6 +1428,11 @@ class ADASPipeline:
 
         cv2.putText(annotated, f"Speed: {self.speed_kmh:.1f} km/h", (15, 190),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.45, (200, 200, 200), 1)
+        
+        brake_temp = self.thermo.current_temperature
+        temp_color = (0, 0, 255) if brake_temp > 450 else (0, 165, 255) if brake_temp > 300 else (0, 255, 0)
+        cv2.putText(annotated, f"Brake Temp: {brake_temp:.0f}C", (15, 215),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.45, temp_color, 1)
 
         return annotated
 
