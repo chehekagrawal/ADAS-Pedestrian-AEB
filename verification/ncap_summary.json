@@ -1,0 +1,62 @@
+{
+    "dry": {
+        "surface": "dry",
+        "total_tests": 36,
+        "avoided": 34,
+        "partial": 1,
+        "collision": 1,
+        "overall_score_pct": 96.8,
+        "at_50kmh": {
+            "CPFA-50": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            },
+            "CPNA-25": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            },
+            "CPNC-50": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            },
+            "CPLA": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            }
+        }
+    },
+    "wet": {
+        "surface": "wet",
+        "total_tests": 36,
+        "avoided": 32,
+        "partial": 1,
+        "collision": 3,
+        "overall_score_pct": 91.9,
+        "at_50kmh": {
+            "CPFA-50": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            },
+            "CPNA-25": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            },
+            "CPNC-50": {
+                "outcome": "collision",
+                "impact_speed": 28.76827915646016,
+                "hic": 498.30268633615606
+            },
+            "CPLA": {
+                "outcome": "avoided",
+                "impact_speed": 0.0,
+                "hic": 0.0
+            }
+        }
+    }
+}

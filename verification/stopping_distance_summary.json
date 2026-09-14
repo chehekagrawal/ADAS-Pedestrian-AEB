@@ -1,0 +1,222 @@
+[
+    {
+        "surface": "dry",
+        "mu_nominal": 0.85,
+        "speed_kmh": 30,
+        "kinematic_m": 4.16,
+        "pacejka_pure_m": 4.16,
+        "delay_0_33s_m": 2.75,
+        "pacejka_total_m": 6.91,
+        "kinematic_underestimation_pct": 39.8,
+        "iso_range": "-"
+    },
+    {
+        "surface": "dry",
+        "mu_nominal": 0.85,
+        "speed_kmh": 50,
+        "kinematic_m": 11.57,
+        "pacejka_pure_m": 11.54,
+        "delay_0_33s_m": 4.58,
+        "pacejka_total_m": 16.13,
+        "kinematic_underestimation_pct": 28.3,
+        "iso_range": "13\u201322m"
+    },
+    {
+        "surface": "dry",
+        "mu_nominal": 0.85,
+        "speed_kmh": 80,
+        "kinematic_m": 29.61,
+        "pacejka_pure_m": 29.41,
+        "delay_0_33s_m": 7.33,
+        "pacejka_total_m": 36.74,
+        "kinematic_underestimation_pct": 19.4,
+        "iso_range": "-"
+    },
+    {
+        "surface": "dry",
+        "mu_nominal": 0.85,
+        "speed_kmh": 100,
+        "kinematic_m": 46.27,
+        "pacejka_pure_m": 45.75,
+        "delay_0_33s_m": 9.17,
+        "pacejka_total_m": 54.91,
+        "kinematic_underestimation_pct": 15.7,
+        "iso_range": "-"
+    },
+    {
+        "surface": "wet",
+        "mu_nominal": 0.55,
+        "speed_kmh": 30,
+        "kinematic_m": 6.44,
+        "pacejka_pure_m": 6.49,
+        "delay_0_33s_m": 2.75,
+        "pacejka_total_m": 9.24,
+        "kinematic_underestimation_pct": 30.3,
+        "iso_range": "-"
+    },
+    {
+        "surface": "wet",
+        "mu_nominal": 0.55,
+        "speed_kmh": 50,
+        "kinematic_m": 17.88,
+        "pacejka_pure_m": 17.97,
+        "delay_0_33s_m": 4.58,
+        "pacejka_total_m": 22.55,
+        "kinematic_underestimation_pct": 20.7,
+        "iso_range": "22\u201335m"
+    },
+    {
+        "surface": "wet",
+        "mu_nominal": 0.55,
+        "speed_kmh": 80,
+        "kinematic_m": 45.76,
+        "pacejka_pure_m": 45.66,
+        "delay_0_33s_m": 7.33,
+        "pacejka_total_m": 52.99,
+        "kinematic_underestimation_pct": 13.6,
+        "iso_range": "-"
+    },
+    {
+        "surface": "wet",
+        "mu_nominal": 0.55,
+        "speed_kmh": 100,
+        "kinematic_m": 71.5,
+        "pacejka_pure_m": 70.86,
+        "delay_0_33s_m": 9.17,
+        "pacejka_total_m": 80.02,
+        "kinematic_underestimation_pct": 10.6,
+        "iso_range": "-"
+    },
+    {
+        "surface": "gravel",
+        "mu_nominal": 0.45,
+        "speed_kmh": 30,
+        "kinematic_m": 7.87,
+        "pacejka_pure_m": 9.85,
+        "delay_0_33s_m": 2.75,
+        "pacejka_total_m": 12.6,
+        "kinematic_underestimation_pct": 37.6,
+        "iso_range": "-"
+    },
+    {
+        "surface": "gravel",
+        "mu_nominal": 0.45,
+        "speed_kmh": 50,
+        "kinematic_m": 21.85,
+        "pacejka_pure_m": 27.22,
+        "delay_0_33s_m": 4.58,
+        "pacejka_total_m": 31.81,
+        "kinematic_underestimation_pct": 31.3,
+        "iso_range": "28\u201340m"
+    },
+    {
+        "surface": "gravel",
+        "mu_nominal": 0.45,
+        "speed_kmh": 80,
+        "kinematic_m": 55.93,
+        "pacejka_pure_m": 68.91,
+        "delay_0_33s_m": 7.33,
+        "pacejka_total_m": 76.24,
+        "kinematic_underestimation_pct": 26.6,
+        "iso_range": "-"
+    },
+    {
+        "surface": "gravel",
+        "mu_nominal": 0.45,
+        "speed_kmh": 100,
+        "kinematic_m": 87.39,
+        "pacejka_pure_m": 106.57,
+        "delay_0_33s_m": 9.17,
+        "pacejka_total_m": 115.74,
+        "kinematic_underestimation_pct": 24.5,
+        "iso_range": "-"
+    },
+    {
+        "surface": "snow",
+        "mu_nominal": 0.25,
+        "speed_kmh": 30,
+        "kinematic_m": 14.16,
+        "pacejka_pure_m": 13.67,
+        "delay_0_33s_m": 2.75,
+        "pacejka_total_m": 16.42,
+        "kinematic_underestimation_pct": 13.8,
+        "iso_range": "-"
+    },
+    {
+        "surface": "snow",
+        "mu_nominal": 0.25,
+        "speed_kmh": 50,
+        "kinematic_m": 39.33,
+        "pacejka_pure_m": 37.74,
+        "delay_0_33s_m": 4.58,
+        "pacejka_total_m": 42.32,
+        "kinematic_underestimation_pct": 7.1,
+        "iso_range": "55\u201375m"
+    },
+    {
+        "surface": "snow",
+        "mu_nominal": 0.25,
+        "speed_kmh": 80,
+        "kinematic_m": 100.68,
+        "pacejka_pure_m": 95.12,
+        "delay_0_33s_m": 7.33,
+        "pacejka_total_m": 102.45,
+        "kinematic_underestimation_pct": 1.7,
+        "iso_range": "-"
+    },
+    {
+        "surface": "snow",
+        "mu_nominal": 0.25,
+        "speed_kmh": 100,
+        "kinematic_m": 157.31,
+        "pacejka_pure_m": 146.56,
+        "delay_0_33s_m": 9.17,
+        "pacejka_total_m": 155.73,
+        "kinematic_underestimation_pct": -1.0,
+        "iso_range": "-"
+    },
+    {
+        "surface": "ice",
+        "mu_nominal": 0.1,
+        "speed_kmh": 30,
+        "kinematic_m": 35.39,
+        "pacejka_pure_m": 42.25,
+        "delay_0_33s_m": 2.75,
+        "pacejka_total_m": 45.0,
+        "kinematic_underestimation_pct": 21.3,
+        "iso_range": "-"
+    },
+    {
+        "surface": "ice",
+        "mu_nominal": 0.1,
+        "speed_kmh": 50,
+        "kinematic_m": 98.32,
+        "pacejka_pure_m": 115.07,
+        "delay_0_33s_m": 4.58,
+        "pacejka_total_m": 119.65,
+        "kinematic_underestimation_pct": 17.8,
+        "iso_range": "60\u2013150m"
+    },
+    {
+        "surface": "ice",
+        "mu_nominal": 0.1,
+        "speed_kmh": 80,
+        "kinematic_m": 251.7,
+        "pacejka_pure_m": 266.84,
+        "delay_0_33s_m": 7.33,
+        "pacejka_total_m": 274.17,
+        "kinematic_underestimation_pct": 8.2,
+        "iso_range": "-"
+    },
+    {
+        "surface": "ice",
+        "mu_nominal": 0.1,
+        "speed_kmh": 100,
+        "kinematic_m": 393.27,
+        "pacejka_pure_m": 367.36,
+        "delay_0_33s_m": 9.17,
+        "pacejka_total_m": 376.53,
+        "kinematic_underestimation_pct": -4.4,
+        "iso_range": "-"
+    }
+]

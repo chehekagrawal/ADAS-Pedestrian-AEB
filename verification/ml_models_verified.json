@@ -1,0 +1,144 @@
+{
+    "adaptive_aeb_model": {
+        "file": "models/adaptive_aeb_model.pkl",
+        "type": "<class 'sklearn.ensemble._forest.RandomForestClassifier'>",
+        "n_estimators": 250,
+        "classes": [
+            0
+        ],
+        "num_features": 20,
+        "feature_columns": [
+            "cx",
+            "cy",
+            "vx",
+            "vy",
+            "speed_px_per_frame",
+            "speed_px_per_sec",
+            "distance_to_ego_px",
+            "width",
+            "height",
+            "distance",
+            "ttc",
+            "ttc_valid",
+            "inv_ttc",
+            "collision_probability",
+            "bbox_area",
+            "speed_mag",
+            "toward_ego_proxy",
+            "uncertainty_proxy",
+            "behavior_id_pred",
+            "behavior_risk_prior"
+        ],
+        "feature_importances": {
+            "cx": 0.0,
+            "cy": 0.0,
+            "vx": 0.0,
+            "vy": 0.0,
+            "speed_px_per_frame": 0.0,
+            "speed_px_per_sec": 0.0,
+            "distance_to_ego_px": 0.0,
+            "width": 0.0,
+            "height": 0.0,
+            "distance": 0.0,
+            "ttc": 0.0,
+            "ttc_valid": 0.0,
+            "inv_ttc": 0.0,
+            "collision_probability": 0.0,
+            "bbox_area": 0.0,
+            "speed_mag": 0.0,
+            "toward_ego_proxy": 0.0,
+            "uncertainty_proxy": 0.0,
+            "behavior_id_pred": 0.0,
+            "behavior_risk_prior": 0.0
+        },
+        "risk_ttc_threshold": 3.0,
+        "behavior_label_map": {
+            "0": "standing",
+            "1": "walking",
+            "2": "running",
+            "3": "crossing",
+            "4": "approaching_road"
+        },
+        "audit_finding": "Model contains only single class [0] due to non-collision training data. Fictitious 91.4% claim in earlier draft is ungrounded."
+    },
+    "behavior_classifier_model": {
+        "file": "models/behavior_classifier.pkl",
+        "type": "<class 'sklearn.ensemble._forest.RandomForestClassifier'>",
+        "n_estimators": 200,
+        "classes": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+        "num_features": 11,
+        "feature_columns": [
+            "mean_cx",
+            "mean_cy",
+            "mean_speed",
+            "max_speed",
+            "std_speed",
+            "mean_vx",
+            "mean_vy",
+            "total_dx",
+            "total_dy",
+            "displacement",
+            "mean_distance_to_ego"
+        ],
+        "label_map": {
+            "0": "standing",
+            "1": "walking",
+            "2": "running",
+            "3": "crossing",
+            "4": "approaching_road"
+        },
+        "ranked_feature_importances": [
+            {
+                "feature": "mean_speed",
+                "importance": 0.29104139109070554
+            },
+            {
+                "feature": "mean_distance_to_ego",
+                "importance": 0.14565285170460573
+            },
+            {
+                "feature": "max_speed",
+                "importance": 0.129512159592192
+            },
+            {
+                "feature": "mean_vx",
+                "importance": 0.10526836977123169
+            },
+            {
+                "feature": "mean_vy",
+                "importance": 0.07463516514476883
+            },
+            {
+                "feature": "mean_cx",
+                "importance": 0.06277600479942275
+            },
+            {
+                "feature": "std_speed",
+                "importance": 0.05590802005301673
+            },
+            {
+                "feature": "total_dx",
+                "importance": 0.04594006936699312
+            },
+            {
+                "feature": "displacement",
+                "importance": 0.04078066899325845
+            },
+            {
+                "feature": "total_dy",
+                "importance": 0.03743122001295581
+            },
+            {
+                "feature": "mean_cy",
+                "importance": 0.011054079470849245
+            }
+        ],
+        "audit_finding": "Genuine multi-class Random Forest trained across 5 VRU states (standing, walking, running, crossing, approaching_road)."
+    }
+}

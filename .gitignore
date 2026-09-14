@@ -72,3 +72,10 @@ models/*.pt
 *.mp4
 *.png
 *.json
+# Virtual environment & local tools
+.venv/
+bin/
+
+# Retain verification outputs
+!verification/*.csv
+!verification/*.json

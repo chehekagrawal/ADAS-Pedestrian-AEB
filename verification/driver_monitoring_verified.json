@@ -1,0 +1,35 @@
+{
+    "source_file": "configs/part5_thresholds.yaml",
+    "ear_thresholds": {
+        "eyes_open_min": 0.25,
+        "tired_max": 0.25,
+        "tired_min": 0.18,
+        "closed_max": 0.18
+    },
+    "temporal_windows": {
+        "blink_max_duration": 0.5,
+        "microsleep_min_duration": 1.5
+    },
+    "reaction_mapping_seconds": {
+        "ALERT": 0.7,
+        "TIRED": 1.1,
+        "DISTRACTED": 1.3,
+        "DROWSY": 1.6,
+        "MICROSLEEP": 100.0
+    },
+    "head_pose_thresholds_deg": {
+        "yaw_limit": 30.0,
+        "pitch_limit": 25.0,
+        "roll_limit": 30.0
+    },
+    "reconciliation_notes": {
+        "ear_definition": "Eyes open: EAR >= 0.25; Tired/Drowsy transition: 0.18 <= EAR < 0.25; Eyes closed: EAR < 0.18",
+        "base_reaction_time_alert": 0.7,
+        "penalties": {
+            "TIRED": 0.4,
+            "DISTRACTED": 0.6,
+            "DROWSY": 0.9,
+            "MICROSLEEP": "Immediate override (forces instant AEB intervention)"
+        }
+    }
+}

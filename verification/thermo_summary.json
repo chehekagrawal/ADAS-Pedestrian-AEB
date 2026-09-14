@@ -1,0 +1,106 @@
+{
+    "constants": {
+        "vehicle_mass_kg": 1500.0,
+        "rotor_mass_kg": 40.0,
+        "ambient_temp_c": 20.0,
+        "cp_cast_iron": 450.0,
+        "cooling_base": 0.0001,
+        "cooling_speed_factor": 5e-05
+    },
+    "single_stop_80kmh": {
+        "kinetic_energy_joules": 370370.37037037034,
+        "temperature_rise_c": 20.576131687242796
+    },
+    "sample_points": [
+        {
+            "temperature_c": 20,
+            "friction_multiplier": 1.0,
+            "friction_loss_pct": 0.0,
+            "aeb_buffer_penalty_s": 0.0
+        },
+        {
+            "temperature_c": 100,
+            "friction_multiplier": 1.0,
+            "friction_loss_pct": 0.0,
+            "aeb_buffer_penalty_s": 0.0
+        },
+        {
+            "temperature_c": 200,
+            "friction_multiplier": 1.0,
+            "friction_loss_pct": 0.0,
+            "aeb_buffer_penalty_s": 0.0
+        },
+        {
+            "temperature_c": 300,
+            "friction_multiplier": 1.0,
+            "friction_loss_pct": 0.0,
+            "aeb_buffer_penalty_s": 0.0
+        },
+        {
+            "temperature_c": 350,
+            "friction_multiplier": 0.9,
+            "friction_loss_pct": 10.0,
+            "aeb_buffer_penalty_s": 0.0556
+        },
+        {
+            "temperature_c": 400,
+            "friction_multiplier": 0.8,
+            "friction_loss_pct": 20.0,
+            "aeb_buffer_penalty_s": 0.125
+        },
+        {
+            "temperature_c": 428,
+            "friction_multiplier": 0.744,
+            "friction_loss_pct": 25.6,
+            "aeb_buffer_penalty_s": 0.172
+        },
+        {
+            "temperature_c": 450,
+            "friction_multiplier": 0.7,
+            "friction_loss_pct": 30.0,
+            "aeb_buffer_penalty_s": 0.2143
+        },
+        {
+            "temperature_c": 500,
+            "friction_multiplier": 0.6,
+            "friction_loss_pct": 40.0,
+            "aeb_buffer_penalty_s": 0.3333
+        },
+        {
+            "temperature_c": 550,
+            "friction_multiplier": 0.5,
+            "friction_loss_pct": 50.0,
+            "aeb_buffer_penalty_s": 0.5
+        },
+        {
+            "temperature_c": 600,
+            "friction_multiplier": 0.4,
+            "friction_loss_pct": 60.0,
+            "aeb_buffer_penalty_s": 0.75
+        },
+        {
+            "temperature_c": 650,
+            "friction_multiplier": 0.3,
+            "friction_loss_pct": 70.0,
+            "aeb_buffer_penalty_s": 1.1667
+        },
+        {
+            "temperature_c": 700,
+            "friction_multiplier": 0.25,
+            "friction_loss_pct": 75.0,
+            "aeb_buffer_penalty_s": 1.5
+        },
+        {
+            "temperature_c": 750,
+            "friction_multiplier": 0.2,
+            "friction_loss_pct": 80.0,
+            "aeb_buffer_penalty_s": 2.0
+        },
+        {
+            "temperature_c": 800,
+            "friction_multiplier": 0.15,
+            "friction_loss_pct": 85.0,
+            "aeb_buffer_penalty_s": 2.8333
+        }
+    ]
+}

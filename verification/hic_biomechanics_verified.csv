@@ -1,0 +1,17 @@
+speed_kmh,hic_geometry_model,impact_zone,wad_m,ais_level,injury_description,hic_closed_form_35k,contact_time_ms,peak_accel_g,original_paper_claim
+0,0.0,hood_mid,1.26,1,Minor,0.0,0.0,0.0,-
+10,25.6,hood_mid,1.29,1,Minor,19.6,35.62,12.5,-
+15,270.9,windshield,1.3,2,Moderate,54.1,35.62,18.7,-
+20,556.1,windshield,1.32,3,Serious,111.0,35.62,25.0,45
+25,971.5,windshield,1.33,3,Serious,193.9,35.62,31.2,-
+30,1532.4,windshield,1.35,5,Critical,305.9,35.62,37.5,280
+35,2252.9,windshield,1.36,5,Critical,449.7,35.62,43.7,-
+40,3145.8,windshield,1.38,6,Fatal,628.0,35.62,49.9,760
+45,4222.9,windshield,1.4,6,Fatal,843.0,35.62,56.2,-
+50,5495.4,windshield,1.41,6,Fatal,1097.0,35.62,62.4,2200
+55,6974.0,windshield,1.43,6,Fatal,1392.2,35.62,68.7,-
+60,8668.7,windshield,1.44,6,Fatal,1730.5,35.62,74.9,-
+65,14352.6,roof,1.46,6,Fatal,2113.8,35.62,81.2,-
+70,17273.9,roof,1.47,6,Fatal,2544.1,35.62,87.4,-
+75,20525.8,roof,1.47,6,Fatal,3023.0,35.62,93.6,-
+80,24119.7,roof,1.47,6,Fatal,3552.3,35.62,99.9,-
