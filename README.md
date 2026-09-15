@@ -50,7 +50,7 @@ results/        training curves, tracking runs, inference outputs
  
 This repository accompanies a manuscript currently in preparation for submission to a peer-reviewed journal:
  
-> Priyadarshi, A., Gopal, A. C., Sarkar, D., Garg, A., & Singh, I. V. *A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection.* Manuscript in preparation. Dept. of Mechanical and Industrial Engineering, IIT Roorkee.
+> Priyadarshi, A., Gopal, A. C., Sarkar, D., Garg, A., & Singh, I. V.   *A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection.* Manuscript in preparation. Dept. of Mechanical and Industrial Engineering, IIT Roorkee.
  
 (see also [`CITATION.cff`](./CITATION.cff))
  

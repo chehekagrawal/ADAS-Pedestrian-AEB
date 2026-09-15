@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "This repository accompanies a manuscript currently in preparation. Until publication, please cite the software directly using the metadata below."
-title: "ADAS-Pedestrian-AEB: A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection"
+title: "A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection"
 type: software
 authors:
   - given-names: Atharv
