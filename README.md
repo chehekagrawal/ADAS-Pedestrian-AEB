@@ -1,10 +1,26 @@
-
 # A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection
- 
+
+> **Physics-aware vision-based Automatic Emergency Braking (AEB) system for vulnerable road users — couples YOLOv8n perception with Pacejka tyre dynamics, brake thermodynamics, driver monitoring, and Euro NCAP/HIC validation. Dept. of Mechanical and Industrial Engineering, IIT Roorkee.**
+
+<!-- Repository Search Discovery Topics -->
+[![Topic: adas](https://shields.io)](https://github.com)
+[![Topic: autonomous-driving](https://shields.io)](https://github.com)
+[![Topic: computer-vision](https://shields.io)](https://github.com)
+[![Topic: yolov8](https://shields.io)](https://github.com)
+[![Topic: object-detection](https://shields.io)](https://github.com)
+[![Topic: pedestrian-detection](https://shields.io)](https://github.com)
+[![Topic: autonomous-emergency-braking](https://shields.io)](https://github.com)
+[![Topic: vehicle-dynamics](https://shields.io)](https://github.com)
+[![Topic: driver-monitoring](https://shields.io)](https://github.com)
+[![Topic: euro-ncap](https://shields.io)](https://github.com)
+[![Topic: pytorch](https://shields.io)](https://github.com)
+
+---
+
 A monocular-vision Automatic Emergency Braking (AEB) pipeline that goes beyond the standard kinematic stopping-distance model (`d = v²/2µg`) by coupling real-time perception with non-linear vehicle dynamics, brake thermodynamics, driver monitoring, and biomechanical injury modeling.
- 
+
 Full method, derivations, and evaluation: see the paper.
- 
+
 ## Highlights
  
 - **Perception:** YOLOv8n on BDD100K (4 VRU-critical classes) — 40.0% mAP@0.5, 19.2 fps on Tesla T4
