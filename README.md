@@ -1,4 +1,99 @@
-# ADAS Perception System for Automatic Emergency Braking (AEB)
+
+# A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection
+ 
+A monocular-vision Automatic Emergency Braking (AEB) pipeline that goes beyond the standard kinematic stopping-distance model (`d = v²/2µg`) by coupling real-time perception with non-linear vehicle dynamics, brake thermodynamics, driver monitoring, and biomechanical injury modeling.
+ 
+Full method, derivations, and evaluation: see the paper.
+ 
+## Highlights
+ 
+- **Perception:** YOLOv8n on BDD100K (4 VRU-critical classes) — 40.0% mAP@0.5, 19.2 fps on Tesla T4
+- **Dynamics:** Pacejka '92 + ABS + load transfer — corrects kinematic stopping-distance underestimates of 15–30%
+- **Thermodynamics:** rotor thermal fade dynamically dilates the TTC threshold (up to +3.0s)
+- **Driver state:** EAR + head pose scale reaction buffers from 0.7s to 1.6s, with microsleep override
+- **Decision:** dual-channel arbitration (deterministic physics + Random Forest, 98.67% ISO 22839 agreement)
+- **Validation:** full 36-scenario Euro NCAP sweep — 97% dry / 92% wet compliance; HIC/AIS injury modeling
+## Setup
+ 
+```bash
+git clone https://github.com/chehekagrawal/ADAS-Pedestrian-AEB.git
+cd ADAS-Pedestrian-AEB
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+```
+ 
+## Usage
+ 
+```bash
+# perception only
+python src/detection/infer.py --source data/sample/test_multiclass.png --model models/yolo_multiclass_best.pt
+ 
+# full pipeline
+python run_pipeline.py --source data/sample/test_video.mp4
+ 
+# reproduce all verified results
+python verification/run_all_verifications.py
+```
+ 
+## Structure
+ 
+```
+src/            perception -> decision -> actuation pipeline (see paper, Fig. 1)
+models/         YOLOv8n detector, behavior + adaptive-AEB classifiers
+configs/        dataset, vehicle dynamics, driver-state threshold configs
+verification/   scripts + audit outputs backing every reported number
+notebooks/      training pipeline (incl. BDD100K -> YOLO conversion)
+results/        training curves, tracking runs, inference outputs
+```
+ 
+## Citation
+ 
+> Priyadarshi, A., Gopal, A. C., Sarkar, D., Garg, A., & Singh, I. V. *A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection.* Dept. of Mechanical & Industrial Engineering, IIT Roorkee.
+ 
+## Contributors
+ 
+Atharv Priyadarshi · Agrawal Chehek Gopal · Debangan Sarkar · Arnav Garg · Prof. Indra Vir Singh
+ 
+## License
+ 
+MIT — see [LICENSE](./LICENSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- # ADAS Perception System for Automatic Emergency Braking (AEB)
 
 ## Overview
 
@@ -205,4 +300,4 @@ Overall:
 
 ## License
 
-For research and educational use only.
+For research and educational use only. -->
