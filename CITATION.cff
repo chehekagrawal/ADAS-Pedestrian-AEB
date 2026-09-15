@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "This repository accompanies a manuscript currently in preparation. Until publication, please cite the software directly using the metadata below."
+title: "ADAS-Pedestrian-AEB: A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection"
+type: software
+authors:
+  - given-names: Atharv
+    family-names: Priyadarshi
+    affiliation: "Indian Institute of Technology Roorkee"
+  - given-names: "Agrawal Chehek"
+    family-names: Gopal
+    affiliation: "Indian Institute of Technology Roorkee"
+  - given-names: Debangan
+    family-names: Sarkar
+    affiliation: "Indian Institute of Technology Roorkee"
+  - given-names: Arnav
+    family-names: Garg
+    affiliation: "Indian Institute of Technology Roorkee"
+  - given-names: "Indra Vir"
+    family-names: Singh
+    email: ivsingh@me.iitr.ac.in
+    affiliation: "Indian Institute of Technology Roorkee"
+repository-code: "https://github.com/chehekagrawal/ADAS-Pedestrian-AEB"
+license: MIT
+version: 1.0.0
+date-released: "2026-09-16"
+preferred-citation:
+  type: unpublished
+  title: "A Physics-Aware Vision-Based Automatic Emergency Braking System for Vulnerable Road User Protection: Multi-Class Perception, Adaptive Time-to-Collision Control, Brake Thermodynamics, and Biomechanical Injury Mitigation"
+  authors:
+    - given-names: Atharv
+      family-names: Priyadarshi
+    - given-names: "Agrawal Chehek"
+      family-names: Gopal
+    - given-names: Debangan
+      family-names: Sarkar
+    - given-names: Arnav
+      family-names: Garg
+    - given-names: "Indra Vir"
+      family-names: Singh
+      email: ivsingh@me.iitr.ac.in
+  notes: "Manuscript in preparation; not yet peer-reviewed or published."
